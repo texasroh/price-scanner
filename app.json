@@ -3,9 +3,12 @@
     "name": "price-scanner",
     "slug": "price-scanner",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes."
+      }
+    }
   },
   "name": "price-scanner"
 }
