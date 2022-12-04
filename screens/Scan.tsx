@@ -1,19 +1,21 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { BarCodeScanner, BarCodeScannerResult } from "expo-barcode-scanner";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { RootStackParamList } from "../navigator/RootStack";
 
 const Container = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 `;
 
-const Scan: React.FC<
-  NativeStackScreenProps<RootStackParamList, "Scan">
-> = () => {
+const Scan: React.FC<NativeStackScreenProps<RootStackParamList, "Scan">> = ({
+  navigation: { navigate, replace },
+}) => {
   const [hasPermission, setHasPermission] = useState<Boolean | null>(null);
-  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -24,16 +26,23 @@ const Scan: React.FC<
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  const handleBarCodeScanned = ({ type, data }: BarCodeScannerResult) => {
+    replace("Search", { barcode: data });
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return (
+      <Container>
+        <ActivityIndicator size={48} />
+      </Container>
+    );
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return (
+      <Container>
+        <Text>No access to camera</Text>
+      </Container>
+    );
   }
 
   return (
@@ -44,7 +53,7 @@ const Scan: React.FC<
           BarCodeScanner.Constants.BarCodeType.upc_e,
           BarCodeScanner.Constants.BarCodeType.upc_ean,
         ]}
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        onBarCodeScanned={handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
     </Container>
