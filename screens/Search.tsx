@@ -1,14 +1,17 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useColorScheme } from "react-native";
 import styled from "styled-components/native";
 import { amazonCrawl } from "../api";
 import EmptyItem from "../components/EmptyItem";
 import Item, { IItem } from "../components/Item";
 import { RootStackParamList } from "../navigator/RootStack";
+import { darkTheme, lightTheme } from "../theme";
 
 const Container = styled.ScrollView`
   padding: 10px;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 interface IData {
@@ -23,10 +26,20 @@ const Search: React.FC<
     params: { barcode },
   },
 }) => {
+  const isDark = useColorScheme() === "dark";
   useEffect(() => {
     setOptions({
       headerShown: true,
       headerTitle: barcode,
+      headerStyle: {
+        backgroundColor: isDark
+          ? darkTheme.backgroundColor
+          : lightTheme.backgroundColor,
+      },
+      headerTitleStyle: {
+        color: isDark ? darkTheme.textColor : lightTheme.textColor,
+      },
+      headerTintColor: isDark ? darkTheme.textColor : lightTheme.textColor,
     });
   }, []);
 

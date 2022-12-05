@@ -2,7 +2,7 @@ import { ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 
 const Card = styled.View`
-  border-color: black;
+  border-color: ${(props) => props.theme.textColor};
   border-width: 1px;
   border-radius: 10px;
   flex-direction: row;
@@ -13,9 +13,12 @@ const Card = styled.View`
 
 const Market = styled.Text`
   font-weight: 600;
+  color: ${(props) => props.theme.textColor};
 `;
 
-const NotAvailable = styled.Text``;
+const NotAvailable = styled.Text`
+  color: ${(props) => props.theme.textColor};
+`;
 
 interface IEmptyItem {
   market: string;

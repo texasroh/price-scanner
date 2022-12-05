@@ -11,7 +11,7 @@ export interface IItem {
 }
 
 const Card = styled.View`
-  border-color: black;
+  border-color: ${(props) => props.theme.textColor};
   border-width: 1px;
   border-radius: 10px;
   flex-direction: row;
@@ -26,6 +26,7 @@ const Image = styled.Image`
   flex: 0.3;
   min-height: 100px;
   object-fit: scale-down;
+  border-radius: 10px;
 `;
 
 const Info = styled.View`
@@ -35,15 +36,18 @@ const Info = styled.View`
 const Market = styled.Text`
   margin-bottom: 10px;
   font-weight: 600;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Title = styled.Text`
   font-size: 14px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Price = styled.Text`
   font-size: 20px;
   font-weight: 600;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const Item = ({ market, title = "", img_src, link, price }: IItem) => {

@@ -6,6 +6,7 @@ import { RootStackParamList } from "../navigator/RootStack";
 
 const Container = styled.View`
   flex: 1;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const ScanBtn = styled.Pressable`
@@ -17,13 +18,13 @@ const ScanBtn = styled.Pressable`
   border-radius: 25px;
   justify-content: center;
   align-items: center;
-  background-color: #575fcf;
+  background-color: ${(props) => props.theme.btnBgColor};
 `;
 
 const ScanBtnText = styled.Text`
   font-size: 24px;
   font-weight: 500;
-  color: white;
+  color: ${(props) => props.theme.btnTextColor};
 `;
 
 const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
