@@ -40,6 +40,7 @@ const Search: React.FC<
         color: isDark ? darkTheme.textColor : lightTheme.textColor,
       },
       headerTintColor: isDark ? darkTheme.textColor : lightTheme.textColor,
+      headerBackTitleVisible: false,
     });
   }, []);
 

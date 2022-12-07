@@ -14,7 +14,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <NavigationContainer>
-          {/* <StatusBar style="dark" /> */}
+          <StatusBar style="auto" />
           <RootStack />
         </NavigationContainer>
       </ThemeProvider>

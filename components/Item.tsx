@@ -1,6 +1,7 @@
-import { ActivityIndicator, Linking, Text } from "react-native";
+import { Linking, TouchableOpacity, useColorScheme } from "react-native";
 import styled from "styled-components/native";
-import EmptyItem from "./EmptyItem";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { darkTheme, lightTheme } from "../theme";
 
 export interface IItem {
   market: string;
@@ -33,6 +34,12 @@ const Info = styled.View`
   flex: 0.6;
 `;
 
+const MarketWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Market = styled.Text`
   margin-bottom: 10px;
   font-weight: 600;
@@ -51,20 +58,32 @@ const Price = styled.Text`
 `;
 
 const Item = ({ market, title = "", img_src, link, price }: IItem) => {
+  const isDark = useColorScheme() === "dark";
   const goToLink = () => {
     if (link) {
       Linking.openURL(link);
     }
   };
   return (
-    <Card>
-      <Image source={{ uri: img_src }} />
-      <Info>
-        <Market>{market}</Market>
-        <Title>{title.length > 50 ? `${title.slice(0, 50)}...` : title}</Title>
-        <Price>{price}</Price>
-      </Info>
-    </Card>
+    <TouchableOpacity onPress={goToLink}>
+      <Card>
+        <Image source={{ uri: img_src }} />
+        <Info>
+          <MarketWrapper>
+            <Market>{market}</Market>
+            <Ionicons
+              name="chevron-forward"
+              size={20}
+              color={isDark ? darkTheme.textColor : lightTheme.textColor}
+            />
+          </MarketWrapper>
+          <Title>
+            {title.length > 50 ? `${title.slice(0, 50)}...` : title}
+          </Title>
+          <Price>{price}</Price>
+        </Info>
+      </Card>
+    </TouchableOpacity>
   );
 };
 
