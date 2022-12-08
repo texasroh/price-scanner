@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, View } from "react-native";
 import styled from "styled-components/native";
 import { RootStackParamList } from "../navigator/RootStack";
+import { useHistory } from "../storage";
 
 const Container = styled.View`
   flex: 1;
@@ -30,6 +30,8 @@ const ScanBtnText = styled.Text`
 const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
   navigation: { navigate },
 }) => {
+  const { history } = useHistory();
+
   return (
     <Container>
       <ScanBtn onPress={() => navigate("Scan")}>
