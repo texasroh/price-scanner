@@ -27,7 +27,7 @@ const Scan: React.FC<NativeStackScreenProps<RootStackParamList, "Scan">> = ({
     getBarCodeScannerPermissions();
   }, []);
 
-  const { addHistory } = useHistory();
+  const { history, addHistory } = useHistory();
 
   const handleBarCodeScanned = ({ type, data }: BarCodeScannerResult) => {
     addHistory(data);

@@ -4,20 +4,23 @@ import { useEffect, useState } from "react";
 const SEARCH_HISTORY = "search_history";
 
 export const useHistory = () => {
-  const [history, setHistory] = useState<string[]>(["a"]);
+  const [history, setHistory] = useState<string[]>([]);
   useEffect(() => {
     loadHistory().then((his) => setHistory(his));
-    console.log("loadhistory");
   }, []);
 
-  useEffect(() => {
-    storeHistory(history);
-    console.log("store history", history);
-  }, [history]);
+  //   useEffect(() => {
+  //     console.log("useeffect history");
+  //     storeHistory(history).then(() => {
+  //       console.log("store history", history);
+  //     });
+  //   }, [history]);
 
   const addHistory = (his: string) => {
+    const newHistory = [his, ...history];
+    storeHistory(newHistory); //.then(() => setHistory(newHistory));
+    setHistory(newHistory);
     console.log("addhistory", his, history);
-    setHistory([his, ...history]);
   };
   return { history, addHistory };
 };
