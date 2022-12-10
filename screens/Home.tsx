@@ -1,9 +1,12 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
+import HistoryItem from "../components/HistoryItem";
 import { RootStackParamList } from "../navigator/RootStack";
-import { useHistory } from "../storage";
+import { deleteHistory, loadHistory } from "../storage";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Container = styled.View`
   flex: 1;
@@ -29,24 +32,43 @@ const ScanBtnText = styled.Text`
   color: ${(props) => props.theme.btnTextColor};
 `;
 
+if (Platform.OS === "android") {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
+
 const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
   navigation: { navigate },
 }) => {
   const [data, setData] = useState<string[]>([]);
-  const { history } = useHistory();
-  useEffect(() => {
-    console.log("test");
-    setData(history);
-  });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const load = async () => {
+        const history = await loadHistory();
+        LayoutAnimation.spring();
+        // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+        setData(history);
+      };
+      load();
+    }, [setData])
+  );
+
+  const onDelete = (value: string) => {
+    deleteHistory(value);
+    const newData = data.filter((item) => item !== value);
+    LayoutAnimation.spring();
+    // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    setData(newData);
+  };
 
   return (
     <Container>
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View>
-            <Text style={{ color: "white" }}>{item}</Text>
-          </View>
+          <HistoryItem value={item} onDelete={onDelete} />
         )}
       />
       <ScanBtn onPress={() => navigate("Scan")}>
