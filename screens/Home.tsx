@@ -63,12 +63,20 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
     setData(newData);
   };
 
+  const goToSearch = (value: string) => {
+    navigate("Search", { value });
+  };
+
   return (
     <Container>
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <HistoryItem value={item} onDelete={onDelete} />
+          <HistoryItem
+            value={item}
+            onDelete={onDelete}
+            goToSearch={goToSearch}
+          />
         )}
       />
       <ScanBtn onPress={() => navigate("Scan")}>

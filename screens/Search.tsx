@@ -23,14 +23,14 @@ const Search: React.FC<
 > = ({
   navigation: { setOptions },
   route: {
-    params: { barcode },
+    params: { value },
   },
 }) => {
   const isDark = useColorScheme() === "dark";
   useEffect(() => {
     setOptions({
       headerShown: true,
-      headerTitle: barcode,
+      headerTitle: value,
       headerStyle: {
         backgroundColor: isDark
           ? darkTheme.backgroundColor
@@ -45,7 +45,7 @@ const Search: React.FC<
   }, []);
 
   const { isLoading: amazonLoading, data: amazonData } = useQuery(
-    ["amazon", barcode],
+    ["amazon", value],
     amazonCrawl
   );
 

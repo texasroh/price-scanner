@@ -6,7 +6,7 @@ import Search from "../screens/Search";
 export type RootStackParamList = {
   Home: undefined;
   Scan: undefined;
-  Search: { barcode: string };
+  Search: { value: string };
 };
 
 const nav = createNativeStackNavigator<RootStackParamList>();

@@ -12,6 +12,8 @@ const Container = styled.View`
   border-color: white;
 `;
 
+const CodeBtn = styled.TouchableOpacity``;
+
 const Value = styled.Text`
   color: ${(props) => props.theme.textColor};
 `;
@@ -25,15 +27,22 @@ const DeleteBtnText = styled.Text`
 interface IHistoryItem {
   value: string;
   onDelete: (value: string) => void;
+  goToSearch: (value: string) => void;
 }
 
-const HistoryItem: React.FC<IHistoryItem> = ({ value, onDelete }) => {
+const HistoryItem: React.FC<IHistoryItem> = ({
+  value,
+  onDelete,
+  goToSearch,
+}) => {
   const onPress = (value: string) => {
     onDelete(value);
   };
   return (
     <Container>
-      <Value>{value}</Value>
+      <CodeBtn onPress={() => goToSearch(value)}>
+        <Value>{value}</Value>
+      </CodeBtn>
       <DeleteBtn>
         <DeleteBtnText onPress={() => onPress(value)}>
           <Ionicons name="trash-bin-outline" />

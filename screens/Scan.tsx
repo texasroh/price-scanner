@@ -29,7 +29,7 @@ const Scan: React.FC<NativeStackScreenProps<RootStackParamList, "Scan">> = ({
 
   const handleBarCodeScanned = ({ type, data }: BarCodeScannerResult) => {
     addHistory(data);
-    replace("Search", { barcode: data });
+    replace("Search", { value: data });
   };
 
   if (hasPermission === null) {
