@@ -158,16 +158,22 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
       <Section>
         <SectionTitle>History</SectionTitle>
       </Section>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <HistoryItem
-            value={item}
-            onDelete={onDelete}
-            goToSearch={goToSearch}
-          />
-        )}
-      />
+      {data.length > 0 ? (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <HistoryItem
+              value={item}
+              onDelete={onDelete}
+              goToSearch={goToSearch}
+            />
+          )}
+        />
+      ) : (
+        <Section>
+          <SectionTitle>No history</SectionTitle>
+        </Section>
+      )}
       <ScanBtn2 onPress={() => navigate("Scan")}>
         <ScanBtnText2>
           <Ionicons name="barcode-outline" size={28} />
