@@ -11,7 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const Container = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.backgroundColor};
-  padding-top: 50px;
+  padding-top: 60px;
 `;
 
 const ScanBtn = styled.Pressable`

@@ -16,6 +16,7 @@ const CodeBtn = styled.TouchableOpacity``;
 
 const Value = styled.Text`
   color: ${(props) => props.theme.textColor};
+  font-size: 20px;
 `;
 
 const DeleteBtn = styled.TouchableOpacity``;
@@ -41,11 +42,11 @@ const HistoryItem: React.FC<IHistoryItem> = ({
   return (
     <Container>
       <CodeBtn onPress={() => goToSearch(value)}>
-        <Value>{value}</Value>
+        <Value>{value.length < 20 ? value : `${value.slice(0, 20)}...`}</Value>
       </CodeBtn>
       <DeleteBtn>
         <DeleteBtnText onPress={() => onPress(value)}>
-          <Ionicons name="trash-bin-outline" />
+          <Ionicons name="trash-outline" size={24} />
         </DeleteBtnText>
       </DeleteBtn>
     </Container>
