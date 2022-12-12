@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import styled from "styled-components/native";
-import { amazonCrawl } from "../api";
+import { amazonCrawl, targetCrawl } from "../api";
 import EmptyItem from "../components/EmptyItem";
 import Item, { IItem } from "../components/Item";
 import { RootStackParamList } from "../navigator/RootStack";
@@ -49,6 +49,11 @@ const Search: React.FC<
   const { isLoading: amazonLoading, data: amazonData } = useQuery(
     ["amazon", value],
     amazonCrawl
+  );
+
+  const { isLoading: targetLoading, data: targetData } = useQuery(
+    ["target", value],
+    targetCrawl
   );
 
   return (

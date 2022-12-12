@@ -1,13 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
-import {
-  FlatList,
-  LayoutAnimation,
-  Platform,
-  UIManager,
-  View,
-} from "react-native";
+import { FlatList, LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import HistoryItem from "../components/HistoryItem";
 import { RootStackParamList } from "../navigator/RootStack";
