@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { RootStackParamList } from "../navigator/RootStack";
-import { addHistory } from "../storage";
 
 const Container = styled.View`
   flex: 1;
@@ -28,7 +27,6 @@ const Scan: React.FC<NativeStackScreenProps<RootStackParamList, "Scan">> = ({
   }, [setHasPermission]);
 
   const handleBarCodeScanned = ({ type, data }: BarCodeScannerResult) => {
-    addHistory(data);
     replace("Search", { value: data });
   };
 

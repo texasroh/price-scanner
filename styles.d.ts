@@ -6,5 +6,6 @@ declare module "styled-components/native" {
     backgroundColor: string;
     btnBgColor: string;
     btnTextColor: string;
+    btn2BgColor: string;
   }
 }

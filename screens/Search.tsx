@@ -7,6 +7,7 @@ import { amazonCrawl } from "../api";
 import EmptyItem from "../components/EmptyItem";
 import Item, { IItem } from "../components/Item";
 import { RootStackParamList } from "../navigator/RootStack";
+import { addHistory } from "../storage";
 import { darkTheme, lightTheme } from "../theme";
 
 const Container = styled.ScrollView`
@@ -42,6 +43,7 @@ const Search: React.FC<
       headerTintColor: isDark ? darkTheme.textColor : lightTheme.textColor,
       headerBackTitleVisible: false,
     });
+    addHistory(value);
   }, []);
 
   const { isLoading: amazonLoading, data: amazonData } = useQuery(

@@ -3,6 +3,7 @@ export const darkTheme = {
   backgroundColor: "#1e272e",
   btnBgColor: "#0be881",
   btnTextColor: "#1e272e",
+  btn2BgColor: "#ffa801",
 };
 
 export const lightTheme = {
@@ -10,4 +11,5 @@ export const lightTheme = {
   backgroundColor: "white",
   btnBgColor: "#05c46b",
   btnTextColor: "white",
+  btn2BgColor: "#ffc048",
 };
