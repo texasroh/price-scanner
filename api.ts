@@ -28,12 +28,38 @@ export const targetCrawl = async ({ queryKey }: QueryFunctionContext) => {
     return { market: "target" };
   }
   const product = products[0];
-  console.log(product.price);
   return {
     market: "target",
     title: product.item.product_description.title,
     link: product.item.enrichment.buy_url,
     img_src: product.item.enrichment.images.primary_image_url,
     price: product.price.formatted_current_price,
+  };
+};
+
+export const walmartCrawl = async ({ queryKey }: QueryFunctionContext) => {
+  const BASE_URL = "https://www.walmart.com";
+  const response = await fetch(
+    `${BASE_URL}/search?q=${queryKey[1]}&sort=best_match&affinityOverride=default`
+  );
+  const text = await response.text();
+  const root = cheerio.load(text);
+  const item_html = root("div[data-item-id]").first().html();
+  if (!item_html) {
+    return { market: "walmart" };
+  }
+  const item = cheerio.load(item_html);
+  const href = item("a").attr("href");
+  const link = href?.startsWith("http") ? href : BASE_URL + href;
+  const img_src = item("img").attr("src");
+  const price = item("[data-automation-id=product-price] div").text();
+  const title = item("[data-automation-id=product-title]").text();
+
+  return {
+    market: "walmart",
+    title,
+    link,
+    img_src,
+    price,
   };
 };

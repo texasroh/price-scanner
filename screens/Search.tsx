@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import styled from "styled-components/native";
-import { amazonCrawl, targetCrawl } from "../api";
+import { amazonCrawl, targetCrawl, walmartCrawl } from "../api";
 import EmptyItem from "../components/EmptyItem";
 import Item, { IItem } from "../components/Item";
 import { RootStackParamList } from "../navigator/RootStack";
@@ -56,6 +56,11 @@ const Search: React.FC<
     targetCrawl
   );
 
+  const { isLoading: walmartLoading, data: walmartData } = useQuery(
+    ["walmart", value],
+    walmartCrawl
+  );
+
   return (
     <Container>
       {amazonLoading || !amazonData?.link ? (
@@ -78,6 +83,17 @@ const Search: React.FC<
           link={targetData.link}
           title={targetData.title}
           price={targetData.price}
+        />
+      )}
+      {walmartLoading || !walmartData?.link ? (
+        <EmptyItem market="walmart" loading={walmartLoading} />
+      ) : (
+        <Item
+          market="walmart"
+          img_src={walmartData.img_src}
+          link={walmartData.link}
+          title={walmartData.title}
+          price={walmartData.price}
         />
       )}
     </Container>
