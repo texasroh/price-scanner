@@ -63,13 +63,23 @@ const Search: React.FC<
       ) : (
         <Item
           market="amazon.com"
-          img_src={amazonData?.img_src}
-          link={amazonData?.link}
-          title={amazonData?.title}
-          price={amazonData?.price}
+          img_src={amazonData.img_src}
+          link={amazonData.link}
+          title={amazonData.title}
+          price={amazonData.price}
         />
       )}
-      <EmptyItem market="target" loading />
+      {targetLoading || !targetData?.link ? (
+        <EmptyItem market="target" loading={targetLoading} />
+      ) : (
+        <Item
+          market="target"
+          img_src={targetData.img_src}
+          link={targetData.link}
+          title={targetData.title}
+          price={targetData.price}
+        />
+      )}
     </Container>
   );
 };

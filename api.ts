@@ -24,9 +24,16 @@ export const targetCrawl = async ({ queryKey }: QueryFunctionContext) => {
   const response = await fetch(`${BASE_URL}&keyword=${queryKey[1]}`);
   const json = await response.json();
   const products = json.data.search.products;
-  if (products.length === 0 || true) {
+  if (products.length === 0) {
     return { market: "target" };
   }
-  console.log(json.data.search.products);
-  return { market: "target", title: "", link: "", img_src: "", price: "" };
+  const product = products[0];
+  console.log(product.price);
+  return {
+    market: "target",
+    title: product.item.product_description.title,
+    link: product.item.enrichment.buy_url,
+    img_src: product.item.enrichment.images.primary_image_url,
+    price: product.price.formatted_current_price,
+  };
 };
