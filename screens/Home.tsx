@@ -1,12 +1,15 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, LayoutAnimation, Platform, UIManager } from "react-native";
 import styled from "styled-components/native";
 import HistoryItem from "../components/HistoryItem";
 import { RootStackParamList } from "../navigator/RootStack";
 import { deleteHistory, loadHistory } from "../storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { preventAutoHideAsync, hideAsync } from "expo-splash-screen";
+
+preventAutoHideAsync();
 
 const Container = styled.View`
   flex: 1;
@@ -97,6 +100,7 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
 }) => {
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState<string[]>([]);
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -105,6 +109,7 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
         LayoutAnimation.spring();
         // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         setData(history);
+        setAppIsReady(true);
       };
       load();
     }, [setData])
@@ -128,8 +133,23 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
     goToSearch(key);
   };
 
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <Container>
+    <Container onLayout={onLayoutRootView}>
       <SearchBar>
         <TextInput
           autoCapitalize="none"
