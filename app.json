@@ -10,5 +10,9 @@
       }
     }
   },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9690424584877210~7288022606",
+    "ios_app_id": "ca-app-pub-9690424584877210~3323515415"
+  },
   "name": "price-scanner"
 }

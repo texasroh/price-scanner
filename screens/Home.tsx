@@ -8,6 +8,11 @@ import { RootStackParamList } from "../navigator/RootStack";
 import { deleteHistory, loadHistory } from "../storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { preventAutoHideAsync, hideAsync } from "expo-splash-screen";
+import {
+  BannerAd,
+  TestIds,
+  BannerAdSize,
+} from "react-native-google-mobile-ads";
 
 preventAutoHideAsync();
 
@@ -172,7 +177,7 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
       <Section>
         <SectionTitle>History</SectionTitle>
       </Section>
-      {data.length > 0 ? (
+      {data.length > 0 || true ? (
         <FlatList
           data={data}
           renderItem={({ item }) => (
@@ -188,6 +193,7 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
           <SectionTitle>No history</SectionTitle>
         </Section>
       )}
+      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.FULL_BANNER} />
       <ScanBtn2 onPress={() => navigate("Scan")}>
         <ScanBtnText2>
           <Ionicons name="barcode-outline" size={28} />
