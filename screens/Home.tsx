@@ -13,6 +13,7 @@ import {
   TestIds,
   BannerAdSize,
 } from "react-native-google-mobile-ads";
+import * as Device from "expo-device";
 
 preventAutoHideAsync();
 
@@ -76,6 +77,14 @@ const SectionTitle = styled.Text`
   color: ${(props) => props.theme.textColor};
 `;
 
+const ListContainer = styled.View`
+  flex: 1;
+`;
+
+const BannerContainer = styled.View`
+  align-self: center;
+`;
+
 const ScanBtn2 = styled.Pressable`
   position: absolute;
   bottom: 80px;
@@ -103,6 +112,7 @@ if (Platform.OS === "android") {
 const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
   navigation: { navigate },
 }) => {
+  console.log(Platform.OS, Device.isDevice);
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState<string[]>([]);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -177,23 +187,36 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
       <Section>
         <SectionTitle>History</SectionTitle>
       </Section>
-      {data.length > 0 || true ? (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <HistoryItem
-              value={item}
-              onDelete={onDelete}
-              goToSearch={goToSearch}
-            />
-          )}
+      <ListContainer>
+        {data.length > 0 ? (
+          <FlatList
+            data={data}
+            renderItem={({ item }) => (
+              <HistoryItem
+                value={item}
+                onDelete={onDelete}
+                goToSearch={goToSearch}
+              />
+            )}
+          />
+        ) : (
+          <Section>
+            <SectionTitle>No history</SectionTitle>
+          </Section>
+        )}
+      </ListContainer>
+      <BannerContainer>
+        <BannerAd
+          unitId={
+            !Device.isDevice
+              ? TestIds.BANNER
+              : Platform.OS === "android"
+              ? ""
+              : ""
+          }
+          size={BannerAdSize.BANNER}
         />
-      ) : (
-        <Section>
-          <SectionTitle>No history</SectionTitle>
-        </Section>
-      )}
-      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.FULL_BANNER} />
+      </BannerContainer>
       <ScanBtn2 onPress={() => navigate("Scan")}>
         <ScanBtnText2>
           <Ionicons name="barcode-outline" size={28} />
