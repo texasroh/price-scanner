@@ -31,7 +31,9 @@ const SearchBar = styled.View`
   height: 55px;
 `;
 
-const TextInput = styled.TextInput`
+const TextInput = styled.TextInput.attrs({
+  placeholderTextColor: "gray",
+})`
   flex: 0.75;
   border-radius: 5px;
   background-color: white;
@@ -47,8 +49,8 @@ const SearchBtn = styled.TouchableOpacity`
   border-radius: 5px;
 `;
 
-const SearchBtnText = styled.View`
-  color: ${(props) => props.theme.btnTextColor};
+const SearchBtnText = styled.Text`
+  /* color: ${(props) => props.theme.textColor}; */
 `;
 
 /*
@@ -102,7 +104,7 @@ const ScanBtn2 = styled.Pressable`
 const ScanBtnText2 = styled.Text`
   font-size: 24px;
   font-weight: 500;
-  color: ${(props) => props.theme.btnTextColor};
+  /* color: ${(props) => props.theme.textColor}; */
 `;
 
 if (Platform.OS === "android") {
