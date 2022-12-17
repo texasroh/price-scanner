@@ -36,6 +36,7 @@ const TextInput = styled.TextInput`
   border-radius: 5px;
   background-color: white;
   padding: 0 10px;
+  border-width: 1px;
 `;
 
 const SearchBtn = styled.TouchableOpacity`
