@@ -14,6 +14,7 @@ import {
   BannerAdSize,
 } from "react-native-google-mobile-ads";
 import * as Device from "expo-device";
+import Config from "react-native-config";
 
 preventAutoHideAsync();
 
@@ -112,7 +113,6 @@ if (Platform.OS === "android") {
 const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
   navigation: { navigate },
 }) => {
-  console.log(Platform.OS, Device.isDevice);
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState<string[]>([]);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -211,8 +211,8 @@ const Home: React.FC<NativeStackScreenProps<RootStackParamList, "Home">> = ({
             !Device.isDevice
               ? TestIds.BANNER
               : Platform.OS === "android"
-              ? ""
-              : ""
+              ? Config.ANDROID_HOME_BANNER_ID || TestIds.BANNER
+              : Config.IOS_HOME_BANNER_ID || TestIds.BANNER
           }
           size={BannerAdSize.BANNER}
         />
