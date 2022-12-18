@@ -1,7 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { Platform, useColorScheme } from "react-native";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 import styled from "styled-components/native";
 import { amazonCrawl, targetCrawl, walmartCrawl } from "../api";
 import EmptyItem from "../components/EmptyItem";
@@ -9,10 +14,17 @@ import Item, { IItem } from "../components/Item";
 import { RootStackParamList } from "../navigator/RootStack";
 import { addHistory } from "../storage";
 import { darkTheme, lightTheme } from "../theme";
+import * as Device from "expo-device";
+import Config from "react-native-config";
 
 const Container = styled.ScrollView`
   padding: 10px;
   background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+const BannerContainer = styled.View`
+  align-self: center;
+  margin-bottom: 10px;
 `;
 
 interface IData {
@@ -63,6 +75,18 @@ const Search: React.FC<
 
   return (
     <Container>
+      <BannerContainer>
+        <BannerAd
+          unitId={
+            !Device.isDevice
+              ? TestIds.BANNER
+              : Platform.OS === "android"
+              ? Config.ANDROID_HOME_BANNER_ID || TestIds.BANNER
+              : Config.IOS_HOME_BANNER_ID || TestIds.BANNER
+          }
+          size={BannerAdSize.BANNER}
+        />
+      </BannerContainer>
       {amazonLoading || !amazonData?.link ? (
         <EmptyItem market="amazon.com" loading={amazonLoading} />
       ) : (
