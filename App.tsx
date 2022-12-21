@@ -5,10 +5,11 @@ import { useColorScheme } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import RootStack from "./navigator/RootStack";
 import { darkTheme, lightTheme } from "./theme";
+import codePush from "react-native-code-push";
 
 const queryClient = new QueryClient();
 
-export default function App() {
+const App = () => {
   const isDark = useColorScheme() === "dark";
   return (
     <QueryClientProvider client={queryClient}>
@@ -20,4 +21,6 @@ export default function App() {
       </ThemeProvider>
     </QueryClientProvider>
   );
-}
+};
+
+export default codePush(App);
