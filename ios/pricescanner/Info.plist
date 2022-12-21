@@ -22,6 +22,18 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>$(CODEPUSH_KEY)</string>
+	<key>CodePushPublicKey</key>
+	<string>-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxNvH96ZC1Pw8Zl+y6Gnr
+HnpC+gB60z3tARr3nR4zhlTSw6m8c4mHgbtdKQmtqUC4WV3hjXfgab+A89qRAf6+
+s0C5XiTTWmSByDMAl0rm9tylCzoqfme50Id6lOitYnoQHdUQk06JWt46BbSe1Asv
+pq4ujYuus9FR06pGNQY7Bj41xBSqP4HGIBNGZkR3+Xe+h8vj6a+OKdUnvc1boWDD
+KiOrjfxRQG7Rt2o+0/7CzBjnUZY4oGPHRy057R2CHxUlwN0QsKR1MFdgH8uaHUEw
+JE2gePcuxVZSndZKwl0yC/JBA2aeY8D/fgcaqv8IgKr/gC5I0OYhObH5M9FJn6AW
+OQIDAQAB
+-----END PUBLIC KEY-----</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -61,17 +73,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CodePushDeploymentKey</key>
-	<string>nXPzKdH4JXxrIFTcT-zfCNsO_K4QFnVdCumox</string>
-	<key>CodePushPublicKey</key>
-	<string>-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxNvH96ZC1Pw8Zl+y6Gnr
-HnpC+gB60z3tARr3nR4zhlTSw6m8c4mHgbtdKQmtqUC4WV3hjXfgab+A89qRAf6+
-s0C5XiTTWmSByDMAl0rm9tylCzoqfme50Id6lOitYnoQHdUQk06JWt46BbSe1Asv
-pq4ujYuus9FR06pGNQY7Bj41xBSqP4HGIBNGZkR3+Xe+h8vj6a+OKdUnvc1boWDD
-KiOrjfxRQG7Rt2o+0/7CzBjnUZY4oGPHRy057R2CHxUlwN0QsKR1MFdgH8uaHUEw
-JE2gePcuxVZSndZKwl0yC/JBA2aeY8D/fgcaqv8IgKr/gC5I0OYhObH5M9FJn6AW
-OQIDAQAB
------END PUBLIC KEY-----</string>
 </dict>
 </plist>
