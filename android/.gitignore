@@ -22,3 +22,5 @@ buck-out/
 
 # appcenter
 appcenter-config.json
+
+gradle.properties
