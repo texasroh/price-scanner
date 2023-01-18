@@ -3,7 +3,12 @@ import * as cheerio from "cheerio";
 
 export const amazonCrawl = async ({ queryKey }: QueryFunctionContext) => {
   const BASE_URL = "https://www.amazon.com";
-  const response = await fetch(`${BASE_URL}/s?k=${queryKey[1]}&s=review-rank`);
+  const response = await fetch(`${BASE_URL}/s?k=${queryKey[1]}&s=review-rank`, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.86 Mobile Safari/537.36",
+    },
+  });
   const text = await response.text();
   const root = cheerio.load(text);
   const item_html = root(".s-result-item.s-asin:not(AdHolder)").first().html();
@@ -21,7 +26,12 @@ export const amazonCrawl = async ({ queryKey }: QueryFunctionContext) => {
 export const targetCrawl = async ({ queryKey }: QueryFunctionContext) => {
   const BASE_URL =
     "https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2?key=9f36aeafbe60771e321a7cc95a78140772ab3e96&channel=WEB&count=24&default_purchasability_filter=true&page=0&pricing_store_id=2790&visitor_id=018504CC7C670201BC055C8F0F4E0420";
-  const response = await fetch(`${BASE_URL}&keyword=${queryKey[1]}`);
+  const response = await fetch(`${BASE_URL}&keyword=${queryKey[1]}`, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.86 Mobile Safari/537.36",
+    },
+  });
   const json = await response.json();
   const products = json.data.search.products;
   if (products.length === 0) {
@@ -40,7 +50,13 @@ export const targetCrawl = async ({ queryKey }: QueryFunctionContext) => {
 export const walmartCrawl = async ({ queryKey }: QueryFunctionContext) => {
   const BASE_URL = "https://www.walmart.com";
   const response = await fetch(
-    `${BASE_URL}/search?q=${queryKey[1]}&sort=best_match&affinityOverride=default`
+    `${BASE_URL}/search?q=${queryKey[1]}&sort=best_match&affinityOverride=default`,
+    {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.86 Mobile Safari/537.36",
+      },
+    }
   );
   const text = await response.text();
   const root = cheerio.load(text);
